@@ -347,6 +347,46 @@ footer{background:var(--gray-900);padding:3rem 1.5rem 1.5rem}
   .banner-stat .num{font-size:2rem}
 }
 </style>
+
+<!-- ====================== META PIXEL — Aceros Vilero ======================
+     Pixel ID: 2187504465536411
+     Cuando tengas el codigo de verificacion de dominio, descomenta la
+     linea de abajo y pega el codigo dentro de content="".
+======================================================================== -->
+
+<!-- <meta name="facebook-domain-verification" content="PEGA_AQUI_EL_CODIGO" /> -->
+
+<script>
+!function(f,b,e,v,n,t,s)
+{if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+n.queue=[];t=b.createElement(e);t.async=!0;
+t.src=v;s=b.getElementsByTagName(e)[0];
+s.parentNode.insertBefore(t,s)}(window, document,'script',
+'https://connect.facebook.net/en_US/fbevents.js');
+
+fbq('init', '2187504465536411');
+fbq('track', 'PageView');
+
+/* Evento Contact: detecta clics en cualquier enlace de WhatsApp o telefono,
+   incluido el boton del carrito que cambia su href con JavaScript. */
+document.addEventListener('click', function (e) {
+  var a = e.target && e.target.closest ? e.target.closest('a') : null;
+  if (!a || !a.href) return;
+  var h = a.href;
+  if (h.indexOf('wa.me') > -1 || h.indexOf('api.whatsapp.com') > -1) {
+    fbq('track', 'Contact', { method: 'whatsapp' });
+  } else if (h.indexOf('tel:') === 0) {
+    fbq('track', 'Contact', { method: 'telefono' });
+  }
+}, true);
+</script>
+
+<noscript><img height="1" width="1" style="display:none"
+src="https://www.facebook.com/tr?id=2187504465536411&ev=PageView&noscript=1" alt=""/></noscript>
+
+<!-- ==================== FIN META PIXEL ==================== -->
 </head>
 <body>
 
