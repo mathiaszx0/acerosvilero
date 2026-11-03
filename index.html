@@ -381,6 +381,42 @@ document.addEventListener('click', function (e) {
     fbq('track', 'Contact', { method: 'telefono' });
   }
 }, true);
+
+/* Evento ViewContent: se dispara una sola vez cuando el usuario llega
+   a la seccion de productos o abre el catalogo. */
+(function () {
+  var yaDisparado = false;
+  function verContenido(nombre) {
+    if (yaDisparado) return;
+    yaDisparado = true;
+    fbq('track', 'ViewContent', { content_name: nombre, content_category: 'Coberturas' });
+  }
+  function iniciar() {
+    var secciones = [['productos', 'Productos'], ['catalogo', 'Catalogo']];
+    if ('IntersectionObserver' in window) {
+      var obs = new IntersectionObserver(function (entradas) {
+        entradas.forEach(function (e) {
+          if (e.isIntersecting) {
+            var par = secciones.filter(function (p) { return p[0] === e.target.id; })[0];
+            verContenido(par ? par[1] : 'Productos');
+            obs.disconnect();
+          }
+        });
+      }, { threshold: 0.35 });
+      secciones.forEach(function (p) {
+        var el = document.getElementById(p[0]);
+        if (el) obs.observe(el);
+      });
+    }
+    document.addEventListener('click', function (e) {
+      var t = e.target && e.target.closest ? e.target.closest('.btn-ver-mas, a[href="#productos"], a[href="#catalogo"]') : null;
+      if (t) verContenido('Catalogo');
+    }, true);
+  }
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', iniciar);
+  } else { iniciar(); }
+})();
 </script>
 
 <noscript><img height="1" width="1" style="display:none"
